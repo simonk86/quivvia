@@ -4,7 +4,7 @@ function [v] = vmd_importData(s)
 %   Simon kheifets 6/3/2008
     v = VMD();
     [mov0, nrow, ncol]=readBinMov4(s.dir,s.file,s.transpose);
-    v.mov=vm(mov0);
+    v.mov=vm(mov0(s.crop(3):(end-s.crop(4)),s.crop(1):(end-s.crop(2)),:));
     v.dt = s.dt;
     v.tvec = s.t0+s.dt*(1:v.mov.frames)-s.dt;
     v.meanimg = v.mov.mean;

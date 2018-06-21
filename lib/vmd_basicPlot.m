@@ -1,11 +1,27 @@
-function [h] = vmd_basicPlot(v)
+function [h] = vmd_basicPlot(v,varargin)
 %UNTITLED13 Summary of this function goes here
 %   Detailed explanation goes here
 %   Simon kheifets 6/3/2008
 % add...
 %   PSD and autocorrelation of mean trace...
 %   statistics abt image...
-h.fh = figure('Position',[403   100   837   651],'Color','w');
+h.parent = v;
+
+p = inputParser;
+p.KeepUnmatched = 1;
+addParameter(p,'topdf',0);
+addParameter(p,'fixylims',1); %adjust the y limits for mean nad variancce
+parse(p,varargin{:});
+v2struct(p.Results);
+if topdf
+    h.fh = figure('Units','inches',...
+        'Position',[17 1.5 8.5 11],...
+        'Color','w',...
+        'PaperPosition',[0 0 8.5 11],...
+        'PaperSize',[8.5 11]);
+else
+    h.fh = figure('Position',[403   100   837   651],'Color','w');
+end
 
 nplots = 4;
 nrows = 5;
@@ -25,12 +41,16 @@ pos4 = [ll,0.95-4*hh,ww,hhi];
 
 
 axcount = 1;
-titletext = ['Raw voltage movie summary: ' v.label];
+titletext = ['Raw voltage movie summary:' newline v.label];
 h.ah(axcount) = subplot('Position',postitle);
 %set(gca,'box','on');
 h.th = text(0.5, 0.5, titletext, 'Units', 'Normalized',...
     'HorizontalAlignment','Center',...
-    'FontUnits','Normalized','FontSize',0.3);
+    'FontUnits','Normalized','FontSize',0.3,...
+    'Interpreter','none');
+if topdf
+    set(h.th,'FontUnits','inches','FontSize',0.2);
+end
 set(gca,'Visible','off')
 
 
@@ -52,17 +72,25 @@ title('Var of each pixel (log scale)');
 
 axcount = axcount+1;
 h.ah(axcount) = subplot('Position',pos3);
-plot(v.tvec,v.meantrace);
+plot(v.tvec,v.meantrace,'LineWidth',0.05);
 title('Mean of each frame');
 xlabel('Time (s)');
 ylabel('mean counts');
+if fixylims
+    ylim([prctile(v.meantrace,.1) max(v.meantrace)]);
+end
+    
 
 axcount = axcount+1;
 h.ah(axcount) = subplot('Position',pos4);
-plot(v.tvec,v.vartrace);
+plot(v.tvec,v.vartrace,'LineWidth',0.05);
 title('Variance of each frame');
 xlabel('time (s)');
 ylabel('var (counts^2)');
+if fixylims
+    ylim([prctile(v.vartrace,.1) max(v.vartrace)]);
+end
+
 
 
 end

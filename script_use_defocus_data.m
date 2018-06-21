@@ -74,17 +74,23 @@ datfile = 'movReg.bin';
 
 tic
 ipath = 2;
-s1 = makeVMDsettings('Dir',fullfile(basepath, fovpath, paths{ipath}),'File',datfile,'Transpose',1,'DT',1e-3,'Label',[fovpath paths{ipath}],'Platform','Windows');
+s1 = makeVMDsettings('Dir',fullfile(basepath, fovpath, paths{ipath}),...
+    'File',datfile,'Transpose',1,...
+    'DT',1e-3,'Label',[fovpath paths{ipath}],...
+    'Crop', [5 0 2 0]);
 vmd = vmd_importData(s1); %load the movie
-vmd_basicPlot(vmd); %plot basic info about movie
-set(gcf,'Position',[126         100        1114         651]);
-ipath = 5;
-s1 = makeVMDsettings('Dir',fullfile(basepath, fovpath, paths{ipath}),'File',datfile,'Transpose',1,'DT',1e-3,'Label',[fovpath paths{ipath}],'Platform','Windows');
-vmd2 = vmd_importData(s1); %load the movie
+h = vmd_basicPlot(vmd,'topdf',1); %plot basic info about movie
+%set(gcf,'Position',[126         100        1114         651]);
+% ipath = 5;
+% s1 = makeVMDsettings('Dir',fullfile(basepath, fovpath, paths{ipath}),'File',datfile,'Transpose',1,'DT',1e-3,'Label',[fovpath paths{ipath}],'Platform','Windows');
+% vmd2 = vmd_importData(s1); %load the movie
 toc
+%%
+savePdfFig(h);
+%%
 %% sum the movies from two VMDs
 vmd.mov = vmd.mov+vmd2.mov;
-vmd_basicPlot(vmd);
+vmd_basicPlot(vmd,1);
 %% filter Movie
 tic
 s2 = makeFVMsettings('TLim',[0.02 10],'RemoveRowNoise',0,'nBin',2,'TBlood',5);
