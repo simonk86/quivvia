@@ -14,7 +14,7 @@ addParameter(p,'DT',1e-3);
 addParameter(p,'T0',0);
 addParameter(p,'CalcVar',1); %calculate variance during loading?
 addParameter(p,'Label',[]);
-addParameter(p,'Platform','Windows'); %{Windows; Platform}
+addParameter(p,'Platform','Windows'); %{'Windows'; 'Unix'}
 parse(p,varargin{:});
 v2struct(p.Results);
 

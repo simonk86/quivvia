@@ -26,6 +26,7 @@ VMD					%Voltage Movie Data
 	-meanimg		%mean image
 	-varimg			%variance image
 	-meantrace		%mean trace
+    -vartrace       %variance trace
 	-info			%...?
 	-fvm			% (array) of FVM (filtered voltage movie) objects
 	
@@ -59,8 +60,8 @@ FVM 				%Filtered Voltage Movie
 	-varimgLP
 	-meantraceHP
 	-meantraceLP
-	-PCAobj			% (array) of PCMobj objects
-	-ICAobj			% (array) of ICAobj objects
+	-PCAobj			% (array) of PCAobj objects
+	-ICAobj			% currently not used, ICAobj stored as child of PCAobj
 	
 PCAobj
 	-parent
@@ -79,6 +80,10 @@ PCAobj
 ICAobj
 	-parent
 	-set
+		-(sin)
+		-nic
+		-pkeep
+		-alpha
 	-timestamp
 	-nics
 	-more
@@ -89,4 +94,19 @@ ICAobj
 	-mixmat
 	-icells
 	-stats
+	-vunits 		% array of vUnit (putative cells) objects 
+	
+VUNIT
+	-parent
+	-calcmethod		%{'ICA'}...
+	-index 
+	-timestamp
+	-footprint
+	-filter
+	-timetrace
+	-com			%center of mass (pixels for now)
+	-sigma			%second moment
+	-filter			
+	-stats
+	
 	

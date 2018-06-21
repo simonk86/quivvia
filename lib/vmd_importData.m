@@ -9,6 +9,7 @@ function [v] = vmd_importData(s)
     v.tvec = s.t0+s.dt*(1:v.mov.frames)-s.dt;
     v.meanimg = v.mov.mean;
     v.meantrace = v.mov.frameAverage;
+    v.vartrace = var(double(v.mov(:,:)),0,1)'; %variance of each frame
     v.duration = v.tvec(end);
     if isempty(s.label)
         v.label = s.file;

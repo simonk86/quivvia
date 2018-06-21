@@ -2,69 +2,106 @@ function [h] = fvm_quickPlot(f)
 %fvm_quickplot
 %   Plot useful information about filtered movie
 %Simon kheifets 6/3/2018
-h.fh = figure('Position',[207  384        1299         619],'Color','w');
+h.fh = figure('Position',[100  100  1299    619],'Color','w');
 
 %%
-h.ah1 = subplot(3,3,1);
+
+nplots = 9;
+nrows = 3;
+ncols = 3;
+postitle = [0,0.9,1,0.1];
+w0 = 1/ncols;
+h0 = 0.9/nrows;
+ww = (1/ncols)*0.8;
+hh = (0.9/nrows)*0.65;
+for i = 1:nrows
+    b = 0.9-i*h0+0.5*(h0-hh);
+    for j=1:ncols
+        l = (j-1)*w0+0.5*(w0-ww);
+        pos{i,j} = [l b ww hh];
+    end
+end
+
+        
+
+titletext = ['Filtered voltage movie summary: ' f.parent.label];
+
+axcount = 1;
+h.ah(axcount) = subplot('Position',postitle);
+h.th = text(0.5, 0.5, titletext, 'Units', 'Normalized',...
+    'HorizontalAlignment','Center',...
+    'FontUnits','Normalized','FontSize',0.3);
+set(gca,'Visible','off')
+
+axcount = axcount+1;
+h.ah(axcount) = subplot('Position',pos{1,1});
 imagesc(f.meanimg);
 daspect([1 1 1]);
 colorbar;
 colormap(jet);
-title(f.label);
+title('mean img');
 
 
-h.ah1 = subplot(3,3,2);
+axcount = axcount+1;
+h.ah(axcount) = subplot('Position',pos{1,2});
 imagesc(log10(f.varimg));
 daspect([1 1 1]);
 colorbar;
 colormap(jet);
-title('Var Image (log)');
+title('var img');
 
-h.ah2 = subplot(3,3,3);
+axcount = axcount+1;
+h.ah(axcount) = subplot('Position',pos{1,3});
 plot(f.tvec,f.meantrace);
-title('Mean Trace');
-xlabel('Time (s)');
-ylabel('mean counts');
+title('frame avg');
+%xlabel('Time (s)');
+ylabel('counts');
 
 %%
-h.ah4 = subplot(3,3,4);
-imagesc(f.meanimgHP);
-daspect([1 1 1]);
-colorbar;
-colormap(jet);
-title(f.label);
+% axcount = axcount+1;
+% h.ah(axcount) = subplot('Position',pos{2,1});
+%imagesc(f.meanimgHP);
+% daspect([1 1 1]);
+% colorbar;
+% colormap(jet);
+% title(f.label);
 
-h.ah5 = subplot(3,3,5);
+axcount = axcount+1;
+h.ah(axcount) = subplot('Position',pos{2,2});
 imagesc(log10(f.varimgHP));
 daspect([1 1 1]);
 colorbar;
 colormap(jet);
-title('Var Image (log)');
+title('HP: var img)');
 
-h.ah6 = subplot(3,3,6);
+axcount = axcount+1;
+h.ah(axcount) = subplot('Position',pos{2,3});
 plot(f.tvec,f.meantraceHP);
-title('Mean Trace');
-xlabel('Time (s)');
-ylabel('mean counts');
+title('HP: frame avg');
+%xlabel('Time (s)');
+ylabel('counts');
 %%
-h.ah7 = subplot(3,3,7);
-imagesc(f.meanimgLP);
-daspect([1 1 1]);
-colorbar;
-colormap(jet);
-title(f.label);
+% axcount = axcount+1;
+% h.ah(axcount) = subplot('Position',pos{3,1});
+% imagesc(f.meanimgLP);
+% daspect([1 1 1]);
+% colorbar;
+% colormap(jet);
+% title(f.label);
 
-h.ah8 = subplot(3,3,8);
+axcount = axcount+1;
+h.ah(axcount) = subplot('Position',pos{3,2});
 imagesc(log10(f.varimgLP));
 daspect([1 1 1]);
 colorbar;
 colormap(jet);
-title('Var Image (log)');
+title('LP: var img');
 
-h.ah9 = subplot(3,3,9);
+axcount = axcount+1;
+h.ah(axcount) = subplot('Position',pos{3,3});
 plot(f.tvec,f.meantraceLP);
-title('Mean Trace');
+title('LP: frame avg');
 xlabel('Time (s)');
-ylabel('mean counts');
+ylabel('counts');
 end
 
