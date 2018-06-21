@@ -105,8 +105,7 @@ VUNIT
 	-filter
 	-timetrace
 	-com			%center of mass (pixels for now)
-	-sigma			%second moment
-	-filter			
+	-sigma			%second moment		
 	-stats
 	
 	
