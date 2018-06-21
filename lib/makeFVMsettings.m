@@ -14,7 +14,7 @@ addParameter(p,'NBin',3); %binning number
 addParameter(p,'FixDMDFrames',1);
 addParameter(p,'HPSamples',20); %time constant (in samples) of highpass filter
 addParameter(p,'RemoveBloodflow',1); %try to mask pixels w bloodflow
-
+addParameter(p,'TBlood',2.5); %threshold for variance of pixels to remove
 
 
 parse(p,varargin{:});
@@ -29,5 +29,6 @@ s.nbin = NBin;
 s.fixdmdframes = FixDMDFrames;
 s.hpsamples = HPSamples;
 s.rmbloodflow = RemoveBloodflow;
+s.tblood = TBlood;
     
 end

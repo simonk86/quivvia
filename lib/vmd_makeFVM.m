@@ -68,7 +68,7 @@ if s.rmbloodflow %try to remove bloodflow-type pixels
 
     vardif = var(difmovHP.data,0,3);
     %imagesc(vardif);daspect([1 1 1]);colorbar
-    indreject = find(vardif(:)>2.5);
+    indreject = find(vardif(:)>s.tblood);
     movHP(indreject,:) = 0;
     movLP(indreject,:) = 0;
     mov(indreject,:) = 0;
