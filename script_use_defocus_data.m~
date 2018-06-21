@@ -15,16 +15,8 @@ addpath('lib');
 %%
 clc;clearvars;close all
 
-labpathwin = 'X:\Lab\';
-labpathunix = '/n/cohen_lab/Lab';
-if ispc
-    labpath = labpathwin;
-else
-    labpath = labpathunix;
-end
-
-basepath = fullfile(labpath, 'Labmembers', 'Yoav Adam', 'Data', 'In Vivo', 'Hippocampus');% 'X:\Lab\Labmembers\Yoav Adam\Data\In Vivo\Hippocampus';
-%fovpath = 'IVQ48\2018-05-15_IVQ48-S4\slice1\FOV3\';
+basepath = fullfile(labpath, 'Labmembers' 'X:\Lab\Labmembers\Yoav Adam\Data\In Vivo\Hippocampus';
+fovpath = 'IVQ48\2018-05-15_IVQ48-S4\slice1\FOV3\';
 % paths{1} = '130255_Tread_Dilas-8V_488-OD0.0'; %0um
 % paths{2} = '130943_Spont_Dilas-8V_488-OD0.0_DeF-20um'; %-20um
 % paths{3} = '131258_Spont_Dilas-8V_488-OD0.0_DeF-40um';
@@ -63,7 +55,7 @@ basepath = fullfile(labpath, 'Labmembers', 'Yoav Adam', 'Data', 'In Vivo', 'Hipp
 % paths{6}='172840_Tread_Dilas-8V_488-OD0.0';
 % datfile = 'movReg.bin';
 
-fovpath = fullfile('IVQ52','2018-05-31_IVQ52-S1','slice1','FOV7');
+fovpath = 'IVQ52\2018-05-31_IVQ52-S1\slice1\FOV7';
 paths{1}='180658_Tread_Dilas-8V_488-OD0.0';
 paths{2}='181027_Spont_Dilas-8V_488-OD0.0';
 paths{3}='181156_Spont_Dilas-8V_488-OD0.0_Def10';
@@ -74,12 +66,12 @@ datfile = 'movReg.bin';
 
 tic
 ipath = 2;
-s1 = makeVMDsettings('Dir',fullfile(basepath, fovpath, paths{ipath}),'File',datfile,'Transpose',1,'DT',1e-3,'Label',[fovpath paths{ipath}],'Platform','Windows');
+s1 = makeVMDsettings('Dir',fullfile(basepathwin, fovpath, paths{ipath}),'File',datfile,'Transpose',1,'DT',1e-3,'Label',[fovpath paths{ipath}],'Platform','Windows');
 vmd = vmd_importData(s1); %load the movie
 vmd_basicPlot(vmd); %plot basic info about movie
 set(gcf,'Position',[126         100        1114         651]);
 ipath = 5;
-s1 = makeVMDsettings('Dir',fullfile(basepath, fovpath, paths{ipath}),'File',datfile,'Transpose',1,'DT',1e-3,'Label',[fovpath paths{ipath}],'Platform','Windows');
+s1 = makeVMDsettings('Dir',fullfile(basepathwin, paths{ipath}),'File',datfile,'Transpose',1,'DT',1e-3,'Label',paths{ipath},'Platform','Windows');
 vmd2 = vmd_importData(s1); %load the movie
 toc
 %% sum the movies from two VMDs
