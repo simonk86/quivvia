@@ -43,7 +43,8 @@ for i = 1:nrows
     h.ah(axcount) = subplot('Position',pos{i,1});
     
     f = vus(i).footprint;
-    tt = vus(i).timetrace;
+%     tt = vus(i).timetrace;
+    tt = vus(i).timetracenp;
     tvec = vus(i).parent.parent.parent.tvec;
     
     imshow(f,[]);

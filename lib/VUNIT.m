@@ -11,6 +11,8 @@ classdef VUNIT < handle
         footprint = [];
         filter = [];
         timetrace = [];
+        timetracelp = [];
+        timetracenp = [];
         com = []; %center of mass (pixels; relative to filtered movie...)
         sigma = []; %second moment
         stats = [];

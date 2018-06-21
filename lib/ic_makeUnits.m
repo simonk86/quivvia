@@ -21,6 +21,8 @@ for i = 1:ncells
     v.footprint = q.footprints.frame(iu);
     v.filter = q.filters.frame(iu);
     v.timetrace = q.traces(iu,:);
+    v.timetracelp = q.more.traceslp(iu,:);
+    v.timetracenp = q.more.tracesnp(iu,:);
     v.com = []; %calculate COM position of footprint
     v.sigma = []; %rough 'half-width' estimate
     

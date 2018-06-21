@@ -5,18 +5,61 @@ addpath('lib');
 clc;clearvars;close all
 
 basepathwin = 'X:\Lab\Labmembers\Yoav Adam\Data\In Vivo\Hippocampus';
-paths{1} = 'IVQ48\2018-05-15_IVQ48-S4\slice1\FOV3\130255_Tread_Dilas-8V_488-OD0.0'; %0um
-paths{2} = 'IVQ48\2018-05-15_IVQ48-S4\slice1\FOV3\130943_Spont_Dilas-8V_488-OD0.0_DeF-20um'; %-20um
-paths{3} = 'IVQ48\2018-05-15_IVQ48-S4\slice1\FOV3\131258_Spont_Dilas-8V_488-OD0.0_DeF-40um';
-paths{4} = 'IVQ48\2018-05-15_IVQ48-S4\slice1\FOV3\131448_Spont_Dilas-8V_488-OD0.0';
+fovpath = 'IVQ48\2018-05-15_IVQ48-S4\slice1\FOV3\';
+% paths{1} = '130255_Tread_Dilas-8V_488-OD0.0'; %0um
+% paths{2} = '130943_Spont_Dilas-8V_488-OD0.0_DeF-20um'; %-20um
+% paths{3} = '131258_Spont_Dilas-8V_488-OD0.0_DeF-40um';
+% paths{4} = '131448_Spont_Dilas-8V_488-OD0.0';
+
+% fovpath = 'IVQ51\2018-05-31_IVQ51-S1\slice1\FOV2';
+% paths{1}='151650_Tread_Dilas-8V_488-OD0.0';
+% paths{2}='152033_Spont_Dilas-8V_488-OD0.0_Def10um';
+% paths{3}='152113_Spont_Dilas-8V_488-OD0.0_Def20um';
+% paths{4}='152153_Spont_Dilas-8V_488-OD0.0_Def30um';
+% paths{5}='152230_Spont_Dilas-8V_488-OD0.0_Def5um';
+% paths{6}='152308_Spont_Dilas-8V_488-OD0.0';
+
+% fovpath = 'IVQ51\2018-05-31_IVQ51-S1\slice1\FOV3';
+% paths{1}='154212_Tread_Dilas-8V_488-OD0.0';
+% paths{2}='154536_Spont_Dilas-8V_488-OD0.0_Def10';
+% paths{3}='154708_Spont_Dilas-8V_488-OD0.0_Def20';
+% paths{4}='154747_Spont_Dilas-8V_488-OD0.0_Def30';
+% paths{5}='154843_Spont_Dilas-8V_488-OD0.0_Def5';
+% paths{6}='154930_Spont_Dilas-8V_488-OD0.0';
+
+% fovpath = 'IVQ52\2018-05-31_IVQ52-S1\slice1\FOV1';
+% paths{1}='170602_Spont_Dilas-8V_488-OD0.0';
+% paths{2}='170720_Spont_Dilas-8V_488-OD0.0_Def10';
+% paths{3}='170803_Spont_Dilas-8V_488-OD0.0_Def20';
+% paths{4}='170841_Spont_Dilas-8V_488-OD0.0_Def30';
+% paths{5}='170926_Spont_Dilas-8V_488-OD0.0_Def5';
+% paths{6}='171523_Tread_Dilas-8V_488-OD0.0';
+
+% fovpath = 'IVQ52\2018-05-31_IVQ52-S1\slice1\FOV2';
+% paths{1}='172225_Spont_Dilas-8V_488-OD0.0';
+% paths{2}='172354_Spont_Dilas-8V_488-OD0.0_Def10';
+% paths{3}='172444_Spont_Dilas-8V_488-OD0.0_Def20';
+% paths{4}='172535_Spont_Dilas-8V_488-OD0.0_Def30';
+% paths{5}='172626_Spont_Dilas-8V_488-OD0.0_Def5';
+% paths{6}='172840_Tread_Dilas-8V_488-OD0.0';
+% datfile = 'movReg.bin';
+
+fovpath = 'IVQ52\2018-05-31_IVQ52-S1\slice1\FOV7';
+paths{1}='180658_Tread_Dilas-8V_488-OD0.0';
+paths{2}='181027_Spont_Dilas-8V_488-OD0.0';
+paths{3}='181156_Spont_Dilas-8V_488-OD0.0_Def10';
+paths{4}='181235_Spont_Dilas-8V_488-OD0.0_Def20';
+paths{5}='181311_Spont_Dilas-8V_488-OD0.0_Def30';
+paths{6}='181350_Spont_Dilas-8V_488-OD0.0_Def5';
 datfile = 'movReg.bin';
 
 tic
-ipath = 4;
-s1 = makeVMDsettings('Dir',fullfile(basepathwin, paths{ipath}),'File',datfile,'Transpose',1,'DT',1e-3,'Label',paths{ipath},'Platform','Windows');
+ipath = 2;
+s1 = makeVMDsettings('Dir',fullfile(basepathwin, fovpath, paths{ipath}),'File',datfile,'Transpose',1,'DT',1e-3,'Label',[fovpath paths{ipath}],'Platform','Windows');
 vmd = vmd_importData(s1); %load the movie
 vmd_basicPlot(vmd); %plot basic info about movie
-ipath = 3;
+set(gcf,'Position',[126         100        1114         651]);
+ipath = 5;
 s1 = makeVMDsettings('Dir',fullfile(basepathwin, paths{ipath}),'File',datfile,'Transpose',1,'DT',1e-3,'Label',paths{ipath},'Platform','Windows');
 vmd2 = vmd_importData(s1); %load the movie
 toc
@@ -42,7 +85,8 @@ s4 = makeICAsettings('NIC',10,'Alpha',1);
 q1 = pc_doICA(p1,s4); %do ICA,save as ICA object
 ic_quickPlot(q1);
 %% create Units
-q1.icells = [1 2]; %tell it which components are cells ... eventually do this by clicking on the figure
+q1.icells = [2]; %tell it which components are cells ... eventually do this by clicking on the figure
 vUs = ic_makeUnits(q1); %create units based on icells
 vu_calcStats(vUs); %calculate stats...
 vu_quickPlot(vUs); %plot basic cell info
+set(gcf,'Position',[105 245 1385 543]);

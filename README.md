@@ -104,6 +104,8 @@ VUNIT
 	-footprint
 	-filter
 	-timetrace
+    -timetracelp
+    -timetracenp
 	-com			%center of mass (pixels for now)
 	-sigma			%second moment		
 	-stats
