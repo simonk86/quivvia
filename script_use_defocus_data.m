@@ -1,27 +1,9 @@
-labpathwin = 'X:\Lab\';
-labpathunix = '/n/cohen_lab/Lab';
-if ispc
-    labpath = labpathwin;
-else
-    labpath = labpathunix;
-end
-imgpropath = fullfile(labpath,'Computer Code','Image Processing');
-psdpath = fullfile(labpath,'Labmembers','Simon Kheifets', 'Matlab Code', 'psd functions');
 
-
-addpath(genpath(imgpropath)); %add path with subfolders
-addpath(psdpath);
-addpath('lib');
+loadQuivviaDependencies();
 %%
 clc;clearvars;close all
+labpath = labPath();
 
-labpathwin = 'X:\Lab\';
-labpathunix = '/n/cohen_lab/Lab';
-if ispc
-    labpath = labpathwin;
-else
-    labpath = labpathunix;
-end
 
 basepath = fullfile(labpath, 'Labmembers', 'Yoav Adam', 'Data', 'In Vivo', 'Hippocampus');% 'X:\Lab\Labmembers\Yoav Adam\Data\In Vivo\Hippocampus';
 %fovpath = 'IVQ48\2018-05-15_IVQ48-S4\slice1\FOV3\';
