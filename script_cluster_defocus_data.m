@@ -15,4 +15,30 @@ basepath = fullfile(labpath, 'Labmembers', 'Yoav Adam', 'Data', 'In Vivo', 'Hipp
 fovpaths = fovPath(uprFOVs);
 datfile = 'movReg.bin';
 
-%get folders in each fov path
+n=1;
+for i = 1:length(fovpaths)
+    fovpath = fovpaths{i};
+    %get folders in each fov path
+    info = dir(fullfile(basepath,fovpath));
+    folders = {info([info(:).isdir]==1).name};
+    dfolders = folders(~cellfun(@isempty,regexp(folders,'[0-9]{6}_')));
+    
+    for j = 1:length(dfolders)
+        close all
+        dfolder = dfolders{j};
+        fullpath = fullfile(basepath,fovpath,dfolder);
+        thislabel = makeVMDLabel(fullfile(fullpath,datfile));
+        
+        sv = makeVMDsettings('Dir',fullpath,...
+            'File',datfile,'Transpose',1,...
+            'DT',1e-3,'Label',thislabel,...
+            'Crop', [5 0 2 0]);
+        sf = makeFVMsettings('TLim',[0.02 1],...
+            'RemoveRowNoise',0,'nBin',2,...
+            'TBlood',5);
+        sp = makePCAsettings('NPC',20);
+        si = makeICAsettings('NIC',10,'Alpha',1);
+        vmd(n) = autoSegment(sv,sf,sp,si);
+        n=n+1;
+    end
+end

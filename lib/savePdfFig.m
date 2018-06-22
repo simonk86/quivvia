@@ -1,8 +1,13 @@
-function path = savePdfFig(h)
+function thisfilename = savePdfFig(h,vmd,str)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
+savedir = fullfile(vmd.set.dir, 'quivvia');
+
+thisfilename = unqDirFile(savedir,str,'pdf');
 figure(h.fh);
-print -dpdf -painters test
+print('-dpdf','-painters',thisfilename);
+thisfilename2 = unqDirFile(savedir,str,'fig');
+savefig(thisfilename2);
 
 %save to appropriate folder
 %do .ps first (to make multiple pages) and then convert to pdf

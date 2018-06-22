@@ -26,7 +26,7 @@ end
 nplots = 4;
 nrows = 5;
 ncols = 1;
-
+titlesize = 0.15;
 hh = 0.9/nplots;
 hhi = 0.7*hh;
 ww = 0.8;
@@ -49,7 +49,7 @@ h.th = text(0.5, 0.5, titletext, 'Units', 'Normalized',...
     'FontUnits','Normalized','FontSize',0.3,...
     'Interpreter','none');
 if topdf
-    set(h.th,'FontUnits','inches','FontSize',0.2);
+    set(h.th,'FontUnits','inches','FontSize',titlesize);
 end
 set(gca,'Visible','off')
 

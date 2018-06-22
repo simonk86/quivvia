@@ -54,7 +54,7 @@ end
 
 rAspect = obj.cols/obj.rows; %aspect ratio of movie frames
 if isempty(ncols)
-    nCols = ceil(sqrt(nFrames/rAspect));
+    nCols = floor(sqrt(nFrames/rAspect));
 else
     nCols = ncols;
 end
