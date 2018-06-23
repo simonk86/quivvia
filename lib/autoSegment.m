@@ -17,11 +17,11 @@ savePdfFig(h2,vmd,'qvFilt');
 
 fprintf(['PCA...' newline]);
 p1 = fvm_doPCA(f1,sp);
-h3 = pc_quickPlot(p1);
+h3 = pc_quickPlot(p1,'topdf',1);
 savePdfFig(h3,vmd,'qvPCA');
 
 q1 = pc_doICA(p1,si);
-h4 = ic_quickPlot(q1);
+h4 = ic_quickPlot(q1,'topdf',1);
 savePdfFig(h4,vmd,'qvICA');
 
 %save the quivvia raw data also

@@ -16,7 +16,8 @@ fovpaths = fovPath(uprFOVs);
 datfile = 'movReg.bin';
 
 n=1;
-for i = 1:length(fovpaths)
+% for i = 1:length(fovpaths)
+for i = 1:1
     fovpath = fovpaths{i};
     %get folders in each fov path
     info = dir(fullfile(basepath,fovpath));
@@ -38,7 +39,7 @@ for i = 1:length(fovpaths)
             'TBlood',5);
         sp = makePCAsettings('NPC',20);
         si = makeICAsettings('NIC',10,'Alpha',1);
-        vmd(n) = autoSegment(sv,sf,sp,si);
+        vmd = autoSegment(sv,sf,sp,si);
         n=n+1;
     end
 end
