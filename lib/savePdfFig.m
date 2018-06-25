@@ -1,4 +1,4 @@
-function thisfilename = savePdfFig(h,vmd,str)
+function thisfilename2 = savePdfFig(h,vmd,str)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 savedir = fullfile(vmd.set.dir, 'quivvia');
