@@ -9,7 +9,7 @@ stopflag = 0;
 i=1;
 while ~stopflag
     thisfilename = fullfile(savedir,sprintf([str '_%i.' ext],i));
-    if isfile(thisfilename)
+    if isa(thisfilename,'file')==2
         i=i+1;
     else
         stopflag=1;
