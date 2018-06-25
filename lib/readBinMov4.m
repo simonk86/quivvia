@@ -5,9 +5,12 @@ tic
 clc;
 disp('Loading movie...');
 % get the frame size
-Info=textscan(fopen(fullfile(BinDir,'experimental_parameters.txt')),'%s');
+fid1 = fopen(fullfile(BinDir,'experimental_parameters.txt'));
+Info=textscan(fid1,'%s');
 nrow = str2num(Info{1,1}{6,1});
 ncol = str2num(Info{1,1}{3,1});
+fclose(fid1);
+
 datfile = fullfile(BinDir,BinName);
 % read file into tmp vector
 fid=fopen(datfile);

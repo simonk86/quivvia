@@ -1,4 +1,4 @@
-function [vmd] = autoSegment(sv,sf,sp,si)
+function [vmd,fns] = autoSegment(sv,sf,sp,si)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -24,11 +24,15 @@ fn1 = savePdfFig(h1,vmd,'qvRaw');
 fn2 = savePdfFig(h2,vmd,'qvFilt');
 fn3 = savePdfFig(h3,vmd,'qvPCA');
 fn4 = savePdfFig(h4,vmd,'qvICA');
-savedir = fullfile(vmd.set.dir, 'quivvia');
-fn5 = unqDirFile(savedir,'qAll','pdf');
-append_pdfs(fn5,fn1,fn2,fn3,fn4);
+
 %save the quivvia raw data also
+savedir = fullfile(vmd.set.dir, 'quivvia');
 thisfilename = unqDirFile(savedir,'vmdObj','mat');
 save(thisfilename,'vmd');
+
+fns{1}=fn1;
+fns{2}=fn2;
+fns{3}=fn3;
+fns{4}=fn4;
 end
 
