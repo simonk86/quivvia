@@ -16,6 +16,7 @@ classdef VMD < handle
         meantrace = [];
         vartrace = [];
         info = [];
+        clicky = [];        %struct containing size and results from clicky
         fvm = [];
     end
     

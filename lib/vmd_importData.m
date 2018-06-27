@@ -1,6 +1,7 @@
 function [v] = vmd_importData(s)
-%UNTITLED11 Summary of this function goes here
-%   Detailed explanation goes here
+%VMD_importData. Import data and create a vmd object based on settings 
+% stored in struct s. create s using s = makeVMDsettings(...)
+%   Currently written for files from upright in-vivo microscope
 %   Simon kheifets 6/3/2008
     v = VMD();
     [mov0, nrow, ncol]=readBinMov4(s.dir,s.file,s.transpose);

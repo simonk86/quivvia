@@ -14,8 +14,10 @@ addParameter(p,'DT',1e-3);
 addParameter(p,'T0',0);
 addParameter(p,'CalcVar',1); %calculate variance during loading?
 addParameter(p,'Label',[]);
-addParameter(p,'Platform','Windows'); %{'Windows'; 'Unix'}
+%addParameter(p,'Platform','Windows'); %{'Windows'; 'Unix'}
 addParameter(p,'Crop',[0 0 0 0]); %[leftpx rightpx bottompx toppx]
+addParameter(p,'PixelSize',1);          %size of one pixel in pixelunits
+addParameter(p,'PixelUnits', 'camera px');% 
 parse(p,varargin{:});
 v2struct(p.Results);
 
@@ -27,6 +29,8 @@ s.t0 = T0;
 s.calcvar = CalcVar;
 s.label = Label;
 s.crop = Crop;
+s.pixelsize = PixelSize;
+s.pixelunits = PixelUnits;
     
 end
 
