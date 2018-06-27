@@ -28,21 +28,24 @@ datfile = 'movReg.bin';
 n=1;
 pathsin = cellfun(@(x) fullfile(basepath,x),fovpaths,'UniformOutput',false);
 regalbasepath = '/n/regal/cohen_lab/skheifets/tempuprdata/';
-[regalpaths, status, msg] = copyToRegal(basepath,regalbasepath,fovpaths);
+%[regalpaths, status, msg] = copyToRegal(basepath,regalbasepath,fovpaths);
 
 
 % for i = 1:length(fovpaths)
 for i = 1:1
     fovpath = fovpaths{i};
     %get folders in each fov path
-    info = dir(fullfile(basepath,fovpath));
+    if ~isdir(fovpath)
+        copyToRegal(basepath,regalbasepath,{fovpath});
+    end
+    info = dir(fullfile(regalbasepath,fovpath));
     folders = {info([info(:).isdir]==1).name};
     dfolders = folders(~cellfun(@isempty,regexp(folders,'[0-9]{6}_')));
     
     for j = 1:1%length(dfolders)
         close all
         dfolder = dfolders{j};
-        fullpath = fullfile(basepath,fovpath,dfolder);
+        fullpath = fullfile(regalbasepath,fovpath,dfolder);
         thislabel = makeVMDLabel(fullfile(fullpath,datfile));
         
         sv = makeVMDsettings('Dir',fullpath,...
