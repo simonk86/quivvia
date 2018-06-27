@@ -49,12 +49,15 @@ for i = 1:1
             'File',datfile,'Transpose',1,...
             'DT',1e-3,'Label',thislabel,...
             'Crop', [5 0 2 0]);
-        sf = makeFVMsettings('TLim',[0.02 1],...
+        sf = makeFVMsettings('TLim',[0.02 10],...
             'RemoveRowNoise',0,'nBin',2,...
             'TBlood',5);
         sp = makePCAsettings('NPC',20);
         si = makeICAsettings('NIC',10,'Alpha',1);
+        
+        tic
         [vmd, fns] = autoSegment(sv,sf,sp,si);
+        toc
         
         savedir = fullfile(vmd.set.dir, 'quivvia');
         fn5 = unqDirFile(savedir,'qAll','pdf');
