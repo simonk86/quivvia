@@ -7,5 +7,12 @@ pi = cellfun(@(x) fullfile(ri,x),rel,'UniformOutput',false);
 po = cellfun(@(x) fullfile(ro,x),rel,'UniformOutput',false);
 
 for i = 1:np
-    [status{i}, msg{i}]=movefile(pi{i},po{i});
+    if ~isdir(pi{i})
+        error(['could not find' pi{i}]);
+        
+    end
+    if ~isdir(po{i})
+        mkdir(po{i});
+    end
+    [status{i}, msg{i}]=copyfile(pi{i},po{i});
 end
