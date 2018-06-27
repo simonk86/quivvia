@@ -28,4 +28,4 @@ datfile = 'movReg.bin';
 n=1;
 pathsin = cellfun(@(x) fullfile(basepath,x),fovpaths,'UniformOutput',false);
 regalbasepath = fullfile('n','regal','cohen_lab','skheifets','tempUprData');
-[regalpaths, status, msg] = moveToRegal(basepath,regalbasepath,fovpaths);
+[regalpaths, status, msg] = copyToRegal(basepath,regalbasepath,fovpaths);
