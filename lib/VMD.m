@@ -6,6 +6,7 @@ classdef VMD < handle
     
     properties
         set = []; %import settings
+        timestamp = []; %time of creation
         mov = [];
         label = [];
         tvec = [];
@@ -15,8 +16,9 @@ classdef VMD < handle
         varimg = [];
         meantrace = [];
         vartrace = [];
-        info = [];
-        clicky = [];        %struct containing size and results from clicky
+        sgrm = []; %spectrogram information
+%        info = [];
+%        clicky = [];        %struct containing size and results from clicky
         fvm = [];
     end
     

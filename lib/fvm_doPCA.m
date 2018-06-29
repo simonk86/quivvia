@@ -2,6 +2,7 @@ function [p] = fvm_doPCA(f,s)
 %FVM_DOPCA do pca on a filtered movie
 %   make settings s using makePCAsettings.m
 p=PCAobj;
+p.timestamp = datestr(now);
 %% do PCA on HP filtered movie
 [p.uvm,p.d,p.v,p.stats] = vmPCA(f.movHP,s.npc,f.tvec,0); %do PCA
 

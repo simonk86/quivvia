@@ -24,10 +24,12 @@ end
 titlesize=0.15; %font size for title
 if topdf
     txh0 = 0.1;
+    divh0 = 0.4; %how much vert space for the three time traces
+    divw0 = 0.6; %how much horizontal space for the four figures
     postitle = [0,1-txh0,1,txh0];
     
     %position for 3 time traces
-    divh0 = 0.4; %how much space for the three traces
+   
     w0 = 1;
     h0 = (1-txh0)*divh0/3;
     deltaw = 0.9;
@@ -43,7 +45,7 @@ if topdf
     end
     
     %position for %4 images
-    divw0 = 0.4; %how much horizontal space for the four figures
+    
     nrows = 4;
     ncols = 1;
     nplots = nrows*ncols;
@@ -69,9 +71,18 @@ if topdf
     pos{3,2}=pos_f{4};
     pos(:,3)=pos_t;
     
+    %position for info text
+    ww = 1-divw0;
+    hh = 1-divh0-txh0;
+    w0 = 0.8*ww;
+    h0 = 0.8*hh;
+    ll = 1-ww+0.5*(ww-w0);
+    bb = 1-txh0-hh+0.5*(hh-h0);
+    posobjtext = [ll bb w0 h0];
+    
     
 else
-    nplots = 9;
+%     nplots = 9;
     nrows = 3;
     ncols = 3;
     postitle = [0,0.9,1,0.1];
@@ -91,7 +102,7 @@ end
         
 
 titletext = ['Filtered voltage movie summary: ' newline f.parent.label];
-
+%% title
 axcount = 1;
 h.ah(axcount) = subplot('Position',postitle);
 
@@ -103,6 +114,8 @@ set(gca,'Visible','off')
 if topdf
     set(h.th,'FontUnits','inches','FontSize',titlesize);
 end
+
+%% mean img
 axcount = axcount+1;
 h.ah(axcount) = subplot('Position',pos{1,1});
 imagesc(f.meanimg);
@@ -111,7 +124,7 @@ colorbar;
 colormap(jet);
 title('mean img');
 
-
+%% var img
 axcount = axcount+1;
 h.ah(axcount) = subplot('Position',pos{1,2});
 imagesc(log10(f.varimg));
@@ -120,6 +133,7 @@ colorbar;
 colormap(jet);
 title('var img');
 
+%% counts
 axcount = axcount+1;
 h.ah(axcount) = subplot('Position',pos{1,3});
 plot(f.tvec,f.meantrace);
@@ -136,6 +150,7 @@ ylabel('counts');
 % colormap(jet);
 % title(f.label);
 
+%% hp var img
 axcount = axcount+1;
 h.ah(axcount) = subplot('Position',pos{2,2});
 imagesc(log10(f.varimgHP));
@@ -144,6 +159,7 @@ colorbar;
 colormap(jet);
 title('HP: var img)');
 
+%% hp avg img
 axcount = axcount+1;
 h.ah(axcount) = subplot('Position',pos{2,3});
 plot(f.tvec,f.meantraceHP);
@@ -159,6 +175,7 @@ ylabel('counts');
 % colormap(jet);
 % title(f.label);
 
+%% lp var img
 axcount = axcount+1;
 h.ah(axcount) = subplot('Position',pos{3,2});
 imagesc(log10(f.varimgLP));
@@ -167,11 +184,22 @@ colorbar;
 colormap(jet);
 title('LP: var img');
 
+%% lp avg img
 axcount = axcount+1;
 h.ah(axcount) = subplot('Position',pos{3,3});
 plot(f.tvec,f.meantraceLP);
 title('LP: frame avg');
 xlabel('Time (s)');
 ylabel('counts');
+
+%% info text
+axcount = axcount+1;
+h.ah(axcount)=subplot('Position',posobjtext);
+infostring = vmd_toString(f);
+h.th2 = text(-0.5,1,infostring,...
+    'Interpreter','none',...
+    'VerticalAlignment','top',...
+    'FontName','FixedWidth');
+set(gca,'Visible','off')
 end
 

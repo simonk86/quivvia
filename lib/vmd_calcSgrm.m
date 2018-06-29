@@ -1,5 +1,5 @@
 function [sgrm] = vmd_calcSgrm(obj)
-%VMD_plotSgrm obj is a vmd object
+%VMD_calcSgrm... obj is a vmd object
 %   Simon kheifets 6/10/2018
 
 rowavg = squeeze(mean(obj.mov.data,2));
@@ -42,5 +42,6 @@ sgrm.StotLog = StotLog;
 sgrm.parent = obj;
 sgrm.Svm = Svm;
 sgrm.fvm = f;
+obj.sgrm = sgrm; %attatch spectrogram information to vmd object
 end
 

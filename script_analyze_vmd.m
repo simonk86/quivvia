@@ -1,8 +1,5 @@
-%addpath('X:\Lab\Labmembers\Simon Kheifets\Signal Extraction\Matlab\From Yoav\Sub functions');
-addpath(genpath('X:\Lab\Computer Code\Image Processing')); %add path with subfolders
-addpath('X:\Lab\Labmembers\Simon Kheifets\Matlab Code\psd functions');
 addpath('lib');
-%addpath('X:\Lab\Labmembers\Yoav Adam\Scripts\NoRMCorre-master');
+loadQuivviaDependencies();
 %%
 clc;clearvars;close all
 
@@ -33,16 +30,16 @@ fvm_quickPlot(f1); %plot basic stats/summary
 %% do PCA
 s3 = makePCAsettings('NPC',20);
 p1 = fvm_doPCA(f1,s3);
-% pc_quickPlot(p1);
-[handles] = plotPCAresults(p1.uvm,p1.v,p1.d,p1.stats.totvar,['PCA  ' p1.parent.label]);
-figure; plotVStats(p1.d,p1.v,p1.stats); %highpass traces
+pc_quickPlot(p1,'ToPDF',1);
+%[handles] = plotPCAresults(p1.uvm,p1.v,p1.d,p1.stats.totvar,['PCA  ' p1.parent.label]);
+%figure; plotVStats(p1.d,p1.v,p1.stats); %highpass traces
 %plotVStats(p1.more.dnp,p1.more.vnp,p1.more.statsnp); %allpass traces
 %plotVStats(p1.d,p1.more.vlp,p1.more.statslp); %lowpass traces
 
 %% do ICA
 s4 = makeICAsettings('NIC',10,'Alpha',1);
 q1 = pc_doICA(p1,s4); %do ICA,save as ICA object
-ic_quickPlot(q1);
+ic_quickPlot(q1,'ToPDF',1);
 
 %% create Units
 q1.icells = [2 3 4]; %tell it which components are cells ... eventually do this by clicking on the figure

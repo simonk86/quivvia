@@ -77,6 +77,7 @@ end
 
 %% save data in struct
 f = FVM();
+f.timestamp = datestr(now);
 f.parent = v;
 f.set=s;
 f.mov=mov;

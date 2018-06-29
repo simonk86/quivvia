@@ -2,6 +2,7 @@ function [q] = pc_doICA(p,s)
 %FVM_DOICA do pca on a filtered movie
 %   make settings s using makeICAsettings.m
 q=ICAobj;
+q.timestamp = datestr(now);
 %% do ICA on HP filtered movie
 if isempty(s.pkeep)
     p_keep = 1:p.npc;

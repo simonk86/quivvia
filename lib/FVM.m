@@ -7,6 +7,7 @@ classdef FVM < handle
     properties
         parent = [];
         set = [];
+        timestamp = [];
         mov = [];
         tvec = [];
         spectrogram = [];

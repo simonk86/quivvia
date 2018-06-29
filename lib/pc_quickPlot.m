@@ -22,27 +22,95 @@ if topdf
 else
     h.fh = figure('Position',[324   145   973   643],'Color','w');
 end
-pos1 = [0.0 0 0.6 1];
-pos2 = [0.625 0.45 0.35 0.45];
-pos3 = [0.625 0.05 0.35 0.3];
 
-h.ahs(1)= subplot('Position',pos1);
-set(gca,'Visible','off');
-maintitle = ['PCA: ' p.parent.label];
-h.imh = stackImshow(p.uvm,'maintitle',...
-    maintitle,'subtitles',sprintfc('N=%i',1:p.uvm.frames),...
-    'hframe',h.ahs(1),'addcolorbar',1);
 if topdf
-    set(h.imh.thtitle,'FontUnits','inches',...
-        'FontSize',titlesize,'Interpreter','none');
+    htit = 0.1;
+    htop = 0.55;
+    wimg = 0.7;
+    hfrac = 0.25;
+    %position of title
+    postitle = [0,1-htit,1,htit];
+    
+    %position of images
+    hh = htop;
+    ww = wimg;
+    hhi = htop;
+    wwi = wimg;
+    ll = 0.5*(ww-wwi);
+    bb = 1-htit-hh+0.5*(hh-hhi);
+    pos1 = [ll bb wwi hhi];
+    
+    %position of timetraces
+    hh = 1-htop-htit;
+    ww = 1;
+    hhi = 0.8*hh;
+    wwi = 0.8*ww;
+    bb = 0.5*(hh-hhi);
+    ll = 0.5*(ww-wwi);
+    pos2 = [ll bb wwi hhi];
+    
+    %position of fractional variance
+    hh = hfrac;
+    ww = 1-wimg;
+    hhi = 0.8*hh;
+    wwi = 0.8*ww;
+    ll = wimg+0.5*(ww-wwi);
+    bb = 1-htit-htop+0.5*(hh-hhi);
+    pos3 = [ll bb wwi hhi];
+    
+    %position of info string
+    hh = htop-hfrac;
+    ww = 1-wimg;
+    h0 = 0.8*hh;
+    w0 = 0.8*ww;
+    ll = wimg+0.5*(ww-w0);
+    bb = 1-htit-hh+0.5*(hh-h0);
+    pos4 = [ll bb w0 h0];
+else
+    pos1 = [0.0 0 0.6 1];
+    pos2 = [0.625 0.45 0.35 0.45];
+    pos3 = [0.625 0.05 0.35 0.3];
 end
 
-h.ahs(2) = subplot('position',pos2);
+%% plot title
+axcount = 1;
+titletext = ['PCA summary:' newline p.parent.parent.label];
+h.ah(axcount) = subplot('Position',postitle);
+%set(gca,'box','on');
+h.th = text(0.5, 0.5, titletext, 'Units', 'Normalized',...
+    'HorizontalAlignment','Center',...
+    'FontUnits','Normalized','FontSize',0.3,...
+    'Interpreter','none');
+if topdf
+    set(h.th,'FontUnits','inches','FontSize',titlesize);
+end
+set(gca,'Visible','off')
+
+%% plot images
+axcount = axcount+1;
+h.ah(axcount) = subplot('Position',pos1);
+set(gca,'Visible','off');
+h.imh = stackImshow(p.uvm,'subtitles',sprintfc('N=%i',1:p.uvm.frames),...
+    'hframe',h.ah(axcount),'addcolorbar',0);
+if topdf
+%     set(h.ah(axcount),'FontUnits','inches',...
+%         'FontSize',titlesize,'Interpreter','none');
+end
+
+%% plot time traces
+axcount = axcount+1;
+h.ah(axcount) = subplot('Position',pos2);
 stackplot(p.v,p.parent.tvec);
 xlabel('time');
 title('component time traces');
 
-h.ahs(3) = subplot('position', pos3);
+ylims = get(gca,'YLim');
+ylim([ylims(1) size(p.v,2)+1]);
+
+%% plot fractional variance
+axcount = axcount+1;
+h.ah(axcount) = subplot('Position',pos3);
+
 D = p.d;
 tv = p.stats.totvar;
 Dc = [0; cumsum(D)];
@@ -50,5 +118,15 @@ semilogy(0:1:length(D),(tv-Dc)/tv,'o-');
 title('Fractional Variance');
 xlabel('Component number');
 ylabel('fraction of variance remaining');
+
+%% plot info string
+axcount = axcount+1;
+h.ah(axcount)=subplot('Position',pos4);
+infostring = vmd_toString(p);
+h.th2 = text(-0.5,1,infostring,...
+    'Interpreter','none',...
+    'VerticalAlignment','top',...
+    'FontName','FixedWidth');
+set(gca,'Visible','off')
 end
 

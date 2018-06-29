@@ -1,4 +1,4 @@
-function [vmd,fns] = autoSegment(sv,sf,sp,si)
+function [vmd,fns] = autoSegment(sv,sf,sp,si,topdf)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 
