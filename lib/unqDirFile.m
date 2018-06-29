@@ -1,6 +1,8 @@
 function [thisfilename] = unqDirFile(savedir,str,ext)
 
-mkdir(savedir);
+if ~exist(savedir,'dir')==7
+    mkdir(savedir);
+end
 
 
 
